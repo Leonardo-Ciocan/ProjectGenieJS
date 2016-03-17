@@ -38,9 +38,11 @@ var ThreadComponent = (function (_super) {
         var containerStyle = {
             paddingBottom: "10px",
             paddingLeft: "10px",
-            borderBottom: "1px solid lightgray"
+            borderTop: "1px solid transparent",
+            borderBottom: "1px solid rgba(0,0,0,0.5)",
+            color: this.props.selected ? State.getColor() : "black"
         };
-        return React.createElement("div", {onClick: this.divClicked, style: containerStyle}, React.createElement("h1", {style: { marginLeft: "50px", fontWeight: "200", fontSize: "15pt", color: "black" }}, this.props.thread.services[0].name), React.createElement("h2", {style: { marginLeft: "50px", fontWeight: "200", fontSize: "13pt", color: "gray", maginTop: "5px" }}, "This is the last message"));
+        return React.createElement("div", {onClick: this.divClicked, style: containerStyle}, React.createElement("h1", {style: { marginLeft: "50px", fontWeight: "200", fontSize: "15pt" }}, this.props.thread.services[0].name), React.createElement("h2", {style: { marginLeft: "50px", fontWeight: "200", fontSize: "13pt", maginTop: "5px" }}, "This is the last message"));
     };
     return ThreadComponent;
 }(React.Component));

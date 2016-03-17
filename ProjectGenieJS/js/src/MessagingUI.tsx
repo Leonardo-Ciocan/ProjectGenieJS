@@ -31,18 +31,21 @@ interface ThreadComponentProps {
     onClick : Function
     index : number
     key?: any
+    selected : boolean
 }
 class ThreadComponent extends React.Component<ThreadComponentProps, {}>{
     render() {
 
         var containerStyle = {
             paddingBottom: "10px",
-            paddingLeft:"10px",
-            borderBottom:"1px solid lightgray"
+            paddingLeft: "10px",
+            borderTop:"1px solid transparent",
+            borderBottom: "1px solid rgba(0,0,0,0.5)",
+            color: this.props.selected ? State.getColor() : "black"
         };
         return <div onClick={this.divClicked} style={containerStyle} >
-               <h1 style={{marginLeft:"50px", fontWeight: "200", fontSize: "15pt", color: "black" }}>{this.props.thread.services[0].name}</h1>
-               <h2 style={{ marginLeft: "50px", fontWeight: "200", fontSize: "13pt", color: "gray",maginTop:"5px" }}>This is the last message</h2>
+               <h1 style={{marginLeft:"50px", fontWeight: "200", fontSize: "15pt" }}>{this.props.thread.services[0].name}</h1>
+               <h2 style={{ marginLeft: "50px", fontWeight: "200", fontSize: "13pt",maginTop:"5px" }}>This is the last message</h2>
             </div>
     }
 

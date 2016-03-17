@@ -14,13 +14,15 @@ var MainPage = (function (_super) {
         this.threadClicked = function (index) {
             State.currentThread = State.threads[index].id;
             _this.setState({
-                messages: State.messages[State.currentThread]
+                messages: State.messages[State.currentThread],
+                selectedIndex: index
             });
         };
         this.lid = 155;
         this.state = {
             messages: State.messages[State.currentThread],
-            threads: State.threads
+            threads: State.threads,
+            selectedIndex: 0
         };
     }
     MainPage.prototype.render = function () {
@@ -43,7 +45,7 @@ var MainPage = (function (_super) {
             return React.createElement(MessageComponent, {key: message.id, message: message});
         });
         var threads = this.state.threads.map(function (thread, index) {
-            return React.createElement(ThreadComponent, {index: index, onClick: _this.threadClicked, key: thread.id, thread: thread});
+            return React.createElement(ThreadComponent, {selected: index == _this.state.selectedIndex, index: index, onClick: _this.threadClicked, key: thread.id, thread: thread});
         });
         return React.createElement("div", null, React.createElement("div", {style: {
             height: "100%",

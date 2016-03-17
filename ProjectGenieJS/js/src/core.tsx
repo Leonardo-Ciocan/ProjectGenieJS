@@ -4,14 +4,16 @@
 
 interface MainPageState {
     messages? : Array<Message>
-    threads? : Array<Thread>
+    threads?: Array<Thread>
+    selectedIndex? : number
 }
 class MainPage extends React.Component<{ collapsed: boolean }, MainPageState>{
     constructor(props) {
         super(props);
         this.state = {
             messages: State.messages[State.currentThread],
-            threads: State.threads
+            threads: State.threads,
+            selectedIndex : 0
         };
     }
 
@@ -37,8 +39,8 @@ class MainPage extends React.Component<{ collapsed: boolean }, MainPageState>{
             return <MessageComponent key={message.id} message={message} />
         });
 
-        var threads = this.state.threads.map((thread,index) => {
-            return <ThreadComponent index={index} onClick={this.threadClicked} key={thread.id} thread={thread} />
+        var threads = this.state.threads.map((thread, index) => {
+            return <ThreadComponent selected={index == this.state.selectedIndex} index={index} onClick={this.threadClicked} key={thread.id} thread={thread} />
         });
         return <div>
 
@@ -60,7 +62,7 @@ class MainPage extends React.Component<{ collapsed: boolean }, MainPageState>{
                                 {messages}
                 </div>
 
-                <h1 style={{
+                <h1 style={{ 
                     color: State.getColor(),
                     fontWeight: "200",
                     margin: "10px", width: "100%",
@@ -101,7 +103,8 @@ class MainPage extends React.Component<{ collapsed: boolean }, MainPageState>{
     threadClicked = (index) => {
         State.currentThread = State.threads[index].id;
         this.setState({
-            messages: State.messages[State.currentThread]
+            messages: State.messages[State.currentThread],
+            selectedIndex : index
         });
 
 

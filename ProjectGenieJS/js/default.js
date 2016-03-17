@@ -18,14 +18,23 @@
 
 			    titleBar.buttonBackgroundColor = new Windows.UI.ColorHelper.fromArgb(0,0,0,255);
 			    titleBar.backgroundColor = new Windows.UI.ColorHelper.fromArgb(10, 255, 255, 255);
+			    //document.getElementById("root").style.bottom = "150px";
 
 			    startUI(false);
 			    var virtualKeyboard = Windows.UI.ViewManagement.InputPane.getForCurrentView();
 			    virtualKeyboard.addEventListener("showing", function (event) {
-			        event.ensuredFocusedElementInView = false; // Prevent visual viewport resize.
+			        event.ensuredFocusedElementInView = true; // Prevent visual viewport resize.
+			        document.getElementById("root").style.bottom = event.occludedRect.height+"px";
+			        console.log(event.occludedRect.height);
 			    }, false);
+
+			    virtualKeyboard.addEventListener("hiding", function (event) {
+			        
+			        document.getElementById("root").style.bottom = 0;
+			    }, false);
+
+
 			    window.addEventListener("resize", function () {
-			        console.log(window.innerWidth <= 520);
 			        if (window.innerWidth <= 520) {
 			            startUI(true);
 			        }
