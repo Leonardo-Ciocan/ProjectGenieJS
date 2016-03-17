@@ -39,10 +39,18 @@ var ThreadComponent = (function (_super) {
             paddingBottom: "10px",
             paddingLeft: "10px",
             borderTop: "1px solid transparent",
-            borderBottom: "1px solid rgba(0,0,0,0.5)",
-            color: this.props.selected ? State.getColor() : "black"
+            borderBottom: "1px solid rgba(0,0,0,0.2)",
+            color: this.props.selected ? State.getColor() : "black",
+            height: "90px"
         };
-        return React.createElement("div", {onClick: this.divClicked, style: containerStyle}, React.createElement("h1", {style: { marginLeft: "50px", fontWeight: "200", fontSize: "15pt" }}, this.props.thread.services[0].name), React.createElement("h2", {style: { marginLeft: "50px", fontWeight: "200", fontSize: "13pt", maginTop: "5px" }}, "This is the last message"));
+        var circleStyle = {
+            width: "70px", height: "70px",
+            margin: "10px",
+            borderRadius: "100%",
+            border: "1px solid " + this.props.thread.services[0].color,
+            position: "absolute"
+        };
+        return React.createElement("div", {onClick: this.divClicked, style: containerStyle}, React.createElement("div", {style: circleStyle}), React.createElement("h1", {style: { marginLeft: "90px", fontWeight: "200", fontSize: "15pt" }}, this.props.thread.services[0].name), React.createElement("h2", {style: { marginLeft: "90px", fontWeight: "200", fontSize: "13pt", maginTop: "5px" }}, "This is the last message"));
     };
     return ThreadComponent;
 }(React.Component));
