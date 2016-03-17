@@ -14,7 +14,9 @@ class MessageComponent extends React.Component<MessageComponentProps, {}>{
             padding: "10px",
             borderRadius: "5px",
             display: "inline-block",
-            color:"white"
+            color: "white",
+            marginLeft: "20px", marginRight: "20px",
+            textAlign:"left"
         };
         return <div style={{ textAlign: this.props.message.sendFromUser ? "right":"left" }}>
                 <div style={containerStyle} >

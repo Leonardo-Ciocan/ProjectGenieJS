@@ -17,7 +17,9 @@ var MessageComponent = (function (_super) {
             padding: "10px",
             borderRadius: "5px",
             display: "inline-block",
-            color: "white"
+            color: "white",
+            marginLeft: "20px", marginRight: "20px",
+            textAlign: "left"
         };
         return React.createElement("div", {style: { textAlign: this.props.message.sendFromUser ? "right" : "left" }}, React.createElement("div", {style: containerStyle}, this.props.message.body));
     };

@@ -10,8 +10,19 @@
 		if (args.detail.kind === activation.ActivationKind.launch) {
 			if (args.detail.previousExecutionState !== activation.ApplicationExecutionState.terminated) {
 			   
-			    startUI(false);
+			    var helper = new RuntimeComponent1.CoreAppHelper();
+			    helper.extendViewIntoTitleBar(true);
 
+			    var titleBar = Windows.UI.ViewManagement.ApplicationView.getForCurrentView().titleBar;
+			    titleBar.buttonBackgroundColor = new Windows.UI.ColorHelper.fromArgb(0,0,0,255);
+			    titleBar.buttonForegroundColor = Windows.UI.Colors.dodgerBlue;
+			    titleBar.backgroundColor = new Windows.UI.ColorHelper.fromArgb(10, 255, 255, 255);
+
+			    startUI(false);
+			    var virtualKeyboard = Windows.UI.ViewManagement.InputPane.getForCurrentView();
+			    virtualKeyboard.addEventListener("showing", function (event) {
+			        event.ensuredFocusedElementInView = false; // Prevent visual viewport resize.
+			    }, false);
 			    window.addEventListener("resize", function () {
 			        console.log(window.innerWidth <= 520);
 			        if (window.innerWidth <= 520) {

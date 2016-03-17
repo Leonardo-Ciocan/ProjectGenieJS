@@ -16,6 +16,7 @@ var MainPage = (function (_super) {
         };
     }
     MainPage.prototype.render = function () {
+        var _this = this;
         var inputStyle = {
             position: "absolute",
             left: "5px",
@@ -23,7 +24,12 @@ var MainPage = (function (_super) {
             padding: "10px",
             border: "none",
             borderTop: "1px solid lightgray",
-            width: "100%"
+            width: "100%",
+            background: "white",
+            marginBottom: "0px",
+            height: "50px",
+            lineHeight: "50px",
+            verticalAlign: "middle"
         };
         var messages = this.state.messages.map(function (message) {
             return React.createElement(MessageComponent, {key: message.id, message: message});
@@ -32,7 +38,16 @@ var MainPage = (function (_super) {
             height: "100%",
             position: "absolute",
             top: "0", bottom: "0", left: this.props.collapsed ? "0px" : "200px", right: "0"
-        }}, messages, React.createElement("input", {style: inputStyle, placeholder: "Enter message", defaultValue: "supper", type: "text", onKeyPress: this.textKeyDown.bind(this), className: "win-textbox"})), React.createElement("div", {style: {
+        }}, React.createElement("div", {ref: function (ref) { return _this.messagesContainer = ref; }, style: {
+            marginTop: "50px",
+            ovreflowX: "hidden", overflowY: "scroll",
+            position: "absolute", top: "0", left: "0", bottom: "50px", right: "0"
+        }}, messages), React.createElement("h1", {style: {
+            color: "dodgerblue",
+            fontWeight: "200",
+            margin: "10px", width: "100%",
+            textAlign: "left"
+        }}, "Facebook"), React.createElement("input", {style: inputStyle, placeholder: "Enter message", defaultValue: "supper", type: "text", onKeyPress: this.textKeyDown.bind(this), className: "win-textbox"})), React.createElement("div", {style: {
             width: this.props.collapsed ? "0px" : "200px",
             height: "100%",
             borderRight: "1px solid lightgray",
@@ -40,17 +55,21 @@ var MainPage = (function (_super) {
             top: "0", bottom: "0", left: "0",
             background: "#fafafa",
             overflow: "hidden"
-        }}, React.createElement("h1", {style: { width: "100%", textAlign: "center" }}, "Threads")));
+        }}, React.createElement("h1", {style: { fontWeight: "200", margin: "10px", width: "100%", textAlign: "left" }}, "Threads")));
     };
     MainPage.prototype.textKeyDown = function (e) {
-        if (e.key === 'Enter') {
+        var _this = this;
+        if (e.charCode === 13) {
             this.lid++;
             State.messages.push(new Message(String(this.lid), e.target.value, true));
-            console.log(this.lid);
             this.setState({
                 messages: State.messages
             });
             e.target.value = "";
+            setTimeout(function () {
+                _this.messagesContainer.scrollTop = _this.messagesContainer.scrollHeight;
+                console.log(_this.messagesContainer.scrollTop);
+            }, 100);
         }
     };
     return MainPage;
