@@ -9,10 +9,18 @@ var __extends = (this && this.__extends) || function (d, b) {
 var MainPage = (function (_super) {
     __extends(MainPage, _super);
     function MainPage(props) {
+        var _this = this;
         _super.call(this, props);
+        this.threadClicked = function (index) {
+            State.currentThread = State.threads[index].id;
+            _this.setState({
+                messages: State.messages[State.currentThread]
+            });
+        };
         this.lid = 155;
         this.state = {
-            messages: State.messages
+            messages: State.messages[State.currentThread],
+            threads: State.threads
         };
     }
     MainPage.prototype.render = function () {
@@ -34,36 +42,39 @@ var MainPage = (function (_super) {
         var messages = this.state.messages.map(function (message) {
             return React.createElement(MessageComponent, {key: message.id, message: message});
         });
+        var threads = this.state.threads.map(function (thread, index) {
+            return React.createElement(ThreadComponent, {index: index, onClick: _this.threadClicked, key: thread.id, thread: thread});
+        });
         return React.createElement("div", null, React.createElement("div", {style: {
             height: "100%",
             position: "absolute",
-            top: "0", bottom: "0", left: this.props.collapsed ? "0px" : "200px", right: "0"
+            top: "0", bottom: "0", left: this.props.collapsed ? "0px" : "300px", right: "0"
         }}, React.createElement("div", {ref: function (ref) { return _this.messagesContainer = ref; }, style: {
             marginTop: "50px",
             ovreflowX: "hidden", overflowY: "scroll",
             position: "absolute", top: "0", left: "0", bottom: "50px", right: "0"
         }}, messages), React.createElement("h1", {style: {
-            color: "dodgerblue",
+            color: State.getColor(),
             fontWeight: "200",
             margin: "10px", width: "100%",
             textAlign: "left"
-        }}, "Facebook"), React.createElement("input", {style: inputStyle, placeholder: "Enter message", defaultValue: "supper", type: "text", onKeyPress: this.textKeyDown.bind(this), className: "win-textbox"})), React.createElement("div", {style: {
-            width: this.props.collapsed ? "0px" : "200px",
+        }}, State.getService()), React.createElement("input", {style: inputStyle, placeholder: "Enter message", defaultValue: "supper", type: "text", onKeyPress: this.textKeyDown.bind(this), className: "win-textbox"})), React.createElement("div", {style: {
+            width: this.props.collapsed ? "0px" : "300px",
             height: "100%",
             borderRight: "1px solid lightgray",
             position: "absolute",
             top: "0", bottom: "0", left: "0",
             background: "#fafafa",
             overflow: "hidden"
-        }}, React.createElement("h1", {style: { fontWeight: "200", margin: "10px", width: "100%", textAlign: "left" }}, "Threads")));
+        }}, React.createElement("h1", {style: { fontWeight: "200", margin: "10px", width: "100%", textAlign: "left" }}, "Threads"), threads));
     };
     MainPage.prototype.textKeyDown = function (e) {
         var _this = this;
         if (e.charCode === 13) {
             this.lid++;
-            State.messages.push(new Message(String(this.lid), e.target.value, true));
+            State.messages[State.currentThread].push(new Message(String(this.lid), e.target.value, true));
             this.setState({
-                messages: State.messages
+                messages: State.messages[State.currentThread]
             });
             e.target.value = "";
             setTimeout(function () {

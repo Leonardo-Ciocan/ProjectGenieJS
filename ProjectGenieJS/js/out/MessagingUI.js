@@ -12,7 +12,7 @@ var MessageComponent = (function (_super) {
     MessageComponent.prototype.render = function () {
         var containerStyle = {
             maxWidth: "250px",
-            background: "dodgerblue",
+            background: this.props.message.sendFromUser ? "gray" : State.getThread(State.currentThread).services[0].color,
             margin: "10px",
             padding: "10px",
             borderRadius: "5px",
@@ -24,4 +24,23 @@ var MessageComponent = (function (_super) {
         return React.createElement("div", {style: { textAlign: this.props.message.sendFromUser ? "right" : "left" }}, React.createElement("div", {style: containerStyle}, this.props.message.body));
     };
     return MessageComponent;
+}(React.Component));
+var ThreadComponent = (function (_super) {
+    __extends(ThreadComponent, _super);
+    function ThreadComponent() {
+        var _this = this;
+        _super.apply(this, arguments);
+        this.divClicked = function () {
+            _this.props.onClick(_this.props.index);
+        };
+    }
+    ThreadComponent.prototype.render = function () {
+        var containerStyle = {
+            paddingBottom: "10px",
+            paddingLeft: "10px",
+            borderBottom: "1px solid lightgray"
+        };
+        return React.createElement("div", {onClick: this.divClicked, style: containerStyle}, React.createElement("h1", {style: { marginLeft: "50px", fontWeight: "200", fontSize: "15pt", color: "black" }}, this.props.thread.services[0].name), React.createElement("h2", {style: { marginLeft: "50px", fontWeight: "200", fontSize: "13pt", color: "gray", maginTop: "5px" }}, "This is the last message"));
+    };
+    return ThreadComponent;
 }(React.Component));

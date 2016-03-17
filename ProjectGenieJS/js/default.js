@@ -14,8 +14,9 @@
 			    helper.extendViewIntoTitleBar(true);
 
 			    var titleBar = Windows.UI.ViewManagement.ApplicationView.getForCurrentView().titleBar;
+			    titleBar.buttonForegroundColor = Windows.UI.Colors.gray;
+
 			    titleBar.buttonBackgroundColor = new Windows.UI.ColorHelper.fromArgb(0,0,0,255);
-			    titleBar.buttonForegroundColor = Windows.UI.Colors.dodgerBlue;
 			    titleBar.backgroundColor = new Windows.UI.ColorHelper.fromArgb(10, 255, 255, 255);
 
 			    startUI(false);

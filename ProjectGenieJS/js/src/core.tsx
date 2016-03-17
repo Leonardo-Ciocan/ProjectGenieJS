@@ -3,13 +3,15 @@
 /// <reference path="./Models.tsx"/>
 
 interface MainPageState {
-    messages: Array<Message>
+    messages? : Array<Message>
+    threads? : Array<Thread>
 }
 class MainPage extends React.Component<{ collapsed: boolean }, MainPageState>{
     constructor(props) {
         super(props);
         this.state = {
-            messages: State.messages
+            messages: State.messages[State.currentThread],
+            threads: State.threads
         };
     }
 
@@ -35,13 +37,16 @@ class MainPage extends React.Component<{ collapsed: boolean }, MainPageState>{
             return <MessageComponent key={message.id} message={message} />
         });
 
+        var threads = this.state.threads.map((thread,index) => {
+            return <ThreadComponent index={index} onClick={this.threadClicked} key={thread.id} thread={thread} />
+        });
         return <div>
 
              <div style={{
                  height: "100%",
                  position: "absolute",
                 
-                 top: "0", bottom: "0", left: this.props.collapsed ? "0px" : "200px", right: "0"
+                 top: "0", bottom: "0", left: this.props.collapsed ? "0px" : "300px", right: "0"
 
             }}>
                 <div
@@ -56,12 +61,12 @@ class MainPage extends React.Component<{ collapsed: boolean }, MainPageState>{
                 </div>
 
                 <h1 style={{
-                    color: "dodgerblue",
+                    color: State.getColor(),
                     fontWeight: "200",
                     margin: "10px", width: "100%",
                     textAlign: "left"
                 }}>
-                    Facebook
+                    {State.getService() }
                     </h1>
 
 
@@ -74,7 +79,7 @@ class MainPage extends React.Component<{ collapsed: boolean }, MainPageState>{
                  </div>
 
                   <div style={{
-                      width: this.props.collapsed ? "0px" : "200px",
+                      width: this.props.collapsed ? "0px" : "300px",
                       height: "100%",
                       borderRight: "1px solid lightgray",
                       position: "absolute",
@@ -87,17 +92,28 @@ class MainPage extends React.Component<{ collapsed: boolean }, MainPageState>{
                         Threads
                         </h1>
 
+                        {threads}
+
                       </div>
             </div>
+    }
+
+    threadClicked = (index) => {
+        State.currentThread = State.threads[index].id;
+        this.setState({
+            messages: State.messages[State.currentThread]
+        });
+
+
     }
 
     lid : number = 155
     textKeyDown(e) {
         if (e.charCode === 13) {
             this.lid++;
-            State.messages.push(new Message(String(this.lid), e.target.value, true));
+            State.messages[State.currentThread].push(new Message(String(this.lid), e.target.value, true));
             this.setState({
-                messages: State.messages
+                messages: State.messages[State.currentThread]
             });
             e.target.value = "";
             setTimeout(() => {
