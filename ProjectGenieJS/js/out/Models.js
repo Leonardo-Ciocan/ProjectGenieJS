@@ -1,15 +1,14 @@
+var MessageType;
+(function (MessageType) {
+    MessageType[MessageType["text"] = 0] = "text";
+    MessageType[MessageType["image"] = 1] = "image";
+    MessageType[MessageType["chart"] = 2] = "chart";
+    MessageType[MessageType["URL"] = 3] = "URL";
+})(MessageType || (MessageType = {}));
 var Service = (function () {
     function Service() {
     }
     return Service;
-}());
-var Message = (function () {
-    function Message(id, body, sendFromUser) {
-        this.id = id;
-        this.body = body;
-        this.sendFromUser = sendFromUser;
-    }
-    return Message;
 }());
 var Thread = (function () {
     function Thread(id, services) {
@@ -19,41 +18,61 @@ var Thread = (function () {
     return Thread;
 }());
 ;
+var i = 0;
+function generateID() { return String(i++); }
 var State = {
-    currentThread: "0",
+    currentThread: "1",
     messages: {
         "0": [
-            new Message("1", "3 people posted on your timeline", false),
-            new Message("2", "Like that", true),
-            new Message("3", "Any notifications?", true),
-            new Message("4", "Not right now", false),
-            new Message("5", "I'll remind you in 10 minutes", false),
+            { id: generateID(), type: MessageType.text, data: "This is a sample text message", sendFromUser: true },
+            { id: generateID(), type: MessageType.text, data: "Yet another message", sendFromUser: false },
+            { id: generateID(), type: MessageType.text, data: "And even more here", sendFromUser: false },
+            { id: generateID(), type: MessageType.text, data: "Last message", sendFromUser: true },
+            { id: generateID(), type: MessageType.image, data: { url: "http://images4.fanpop.com/image/photos/16000000/Beautiful-Cat-cats-16096437-1280-800.jpg" }, sendFromUser: false },
+            {
+                id: generateID(),
+                type: MessageType.chart,
+                data: {
+                    data: [10, 20, 30, 40],
+                    labels: ["First", "Second", "Third", "Fourth"]
+                },
+                sendFromUser: false
+            },
         ],
         "1": [
-            new Message("1a", "Something here", false),
-            new Message("2a", "Another line", true),
-            new Message("3a", "And more", false),
+            {
+                id: generateID(),
+                type: MessageType.URL,
+                data: {
+                    url: "http://www.theverge.com/2016/3/15/11240632/why-isnt-there-more-tablets-like-this",
+                    thumb: "http://images4.fanpop.com/image/photos/16000000/Beautiful-Cat-cats-16096437-1280-800.jpg",
+                    text: "Click here for candy"
+                }
+            },
+            {
+                id: generateID(),
+                type: MessageType.chart,
+                data: {
+                    data: [22, 8, 155, 10, 101],
+                    labels: ["Hello", "World", "And", "More"]
+                },
+                sendFromUser: false
+            }
         ],
-        "2": [
-            new Message("1b", "This is some very answer and abraham lincln is the answer to this question", false),
-            new Message("2b", "Should be wrapping at X or Y", true),
-            new Message("3b", "Another", true),
-            new Message("4b", "And more stuff", false),
-            new Message("5b", "I'll remind you in 10 minutes", false),
-        ]
+        "2": []
     },
     threads: [
         {
             id: "0",
-            services: [{ name: "Facebook", description: "Social network", color: "dodgerblue" }]
+            services: [{ name: "Facebook", description: "Social network", color: "#3b5998" }]
         },
         {
             id: "1",
-            services: [{ name: "Azure", description: "Social network", color: "red" }]
+            services: [{ name: "Amazon", description: "Social network", color: "orange" }]
         },
         {
             id: "2",
-            services: [{ name: "Blackrock", description: "Financial thingie", color: "green" }]
+            services: [{ name: "Blackrock", description: "Financial thingie", color: "black" }]
         },
     ],
     getThread: function (id) {
