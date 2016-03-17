@@ -12,12 +12,13 @@ var MessageComponent = (function (_super) {
     MessageComponent.prototype.render = function () {
         var containerStyle = {
             maxWidth: "250px",
-            background: this.props.message.sendFromUser ? "gray" : State.getThread(State.currentThread).services[0].color,
+            background: this.props.message.sendFromUser ? "rgba(0,0,0,0.1)" : State.getThread(State.currentThread).services[0].color,
             margin: "10px",
             padding: "10px",
-            borderRadius: "5px",
+            borderRadius: "15px",
             display: "inline-block",
-            color: "white",
+            cursor: "default",
+            color: this.props.message.sendFromUser ? "black" : "white",
             marginLeft: "20px", marginRight: "20px",
             textAlign: "left"
         };
@@ -36,6 +37,7 @@ var ThreadComponent = (function (_super) {
     }
     ThreadComponent.prototype.render = function () {
         var containerStyle = {
+            cursor: "pointer",
             paddingBottom: "10px",
             paddingLeft: "10px",
             borderTop: "1px solid transparent",
@@ -47,10 +49,10 @@ var ThreadComponent = (function (_super) {
             width: "70px", height: "70px",
             margin: "10px",
             borderRadius: "100%",
-            border: "1px solid " + this.props.thread.services[0].color,
+            border: "1px solid " + (this.props.selected ? State.getColor() : "lightgray"),
             position: "absolute"
         };
-        return React.createElement("div", {onClick: this.divClicked, style: containerStyle}, React.createElement("div", {style: circleStyle}), React.createElement("h1", {style: { marginLeft: "90px", fontWeight: "200", fontSize: "15pt" }}, this.props.thread.services[0].name), React.createElement("h2", {style: { marginLeft: "90px", fontWeight: "200", fontSize: "13pt", maginTop: "5px" }}, "This is the last message"));
+        return React.createElement("div", {onClick: this.divClicked, style: containerStyle}, React.createElement("div", {style: circleStyle}), React.createElement("h1", {style: { marginLeft: "90px", fontWeight: "200", fontSize: "15pt", marginBottom: "5px" }}, this.props.thread.services[0].name), React.createElement("h2", {style: { marginLeft: "90px", fontWeight: "200", fontSize: "13pt", marginTop: "0px" }}, "This is the last message"));
     };
     return ThreadComponent;
 }(React.Component));

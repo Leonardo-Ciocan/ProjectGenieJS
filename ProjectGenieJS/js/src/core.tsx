@@ -21,18 +21,24 @@ class MainPage extends React.Component<{ collapsed: boolean }, MainPageState>{
 
     render() {
         var inputStyle = {
-            position: "absolute",
-            left: "5px",
-            bottom: "0", right: "0px",
-            padding: "10px",
-            border: "none",
-            borderTop: "1px solid lightgray",
-            width: "100%",
             background: "white",
             marginBottom: "0px",
-            height: "50px",
-            lineHeight: "50px",
-            verticalAlign:"middle"
+            height: "45px",
+            lineHeight: "45px",
+            verticalAlign: "middle",
+            border: "none",
+            position: "absolute",
+            left: "10px",
+            top:"0" , bottom:"0" , right:"50px"
+        };
+
+        var inputParentStyle = {
+            position: "absolute",
+            left: "1px",
+            bottom: "0", right: "0px",
+            borderTop: "1px solid lightgray",
+            background: "white",
+            height: "45px"
         };
 
         var messages = this.state.messages.map((message) => {
@@ -42,13 +48,31 @@ class MainPage extends React.Component<{ collapsed: boolean }, MainPageState>{
         var threads = this.state.threads.map((thread, index) => {
             return <ThreadComponent selected={index == this.state.selectedIndex} index={index} onClick={this.threadClicked} key={thread.id} thread={thread} />
         });
-        return <div>
 
+        return <div>
+        <div style={{
+            width: "300px",
+            height: "100%",
+            position: "absolute",
+            top: "0", bottom: "0", left: "0",
+            background: "#fafafa",
+            overflow: "hidden"
+        }}>
+
+                    <h1 style={{ fontWeight: "200", margin: "10px", width: "100%", textAlign: "left" }}>
+                        {this.props.collapsed ? "" : "Threads"}
+                        </h1>
+
+                        {threads}
+
+            </div>
              <div style={{
+                background:"white",
                  height: "100%",
                  position: "absolute",
-                
-                 top: "0", bottom: "0", left: this.props.collapsed ? "0px" : "300px", right: "0"
+                 overflowX :"hidden",
+                 top: "0", bottom: "0", left: this.props.collapsed ? "100px" : "300px", right: "0",
+                             borderLeft: "1px solid lightgray",
 
             }}>
                 <div
@@ -56,7 +80,8 @@ class MainPage extends React.Component<{ collapsed: boolean }, MainPageState>{
                     style={{
                     marginTop:"50px",
                     ovreflowX: "hidden", overflowY: "scroll",
-                    position:"absolute" , top:"0" , left:"0" , bottom:"50px", right:"0"
+                    position: "absolute", top: "0", left: "0", bottom: "50px", right: "0",
+                    paddingBottom:"25px"
                     }}
                     >
                                 {messages}
@@ -65,38 +90,32 @@ class MainPage extends React.Component<{ collapsed: boolean }, MainPageState>{
                 <h1 style={{ 
                     color: State.getColor(),
                     fontWeight: "200",
-                    margin: "10px", width: "100%",
+                    margin: "10px", width: "100%", marginLeft:"20px",
                     textAlign: "left"
                 }}>
                     {State.getService() }
                     </h1>
 
 
-                     <input style={inputStyle}
+                     <div style={inputParentStyle} >
+                         <a
+                        style={{
+                        color: State.getColor(),
+                        position: "absolute",
+                        lineHeight: "45px",
+                        verticalAlign: "middle",
+                            right:"10px",top:"0px",bottom:"0px"
+                        }}
+                        >Send</a>
+                         <input style={inputStyle}
                          placeholder="Enter message"
-                         defaultValue="supper"
                          type="text"
                          onKeyPress={this.textKeyDown.bind(this) }
                          className="win-textbox"/>
+                     </div>
                  </div>
 
-                  <div style={{
-                      width: this.props.collapsed ? "0px" : "300px",
-                      height: "100%",
-                      borderRight: "1px solid lightgray",
-                      position: "absolute",
-                      top: "0", bottom: "0", left: "0",
-                      background: "#fafafa",
-                      overflow: "hidden"
-                  }}>
-
-                    <h1 style={{ fontWeight:"200",margin:"10px", width: "100%", textAlign: "left" }}>
-                        Threads
-                        </h1>
-
-                        {threads}
-
-                      </div>
+                  
             </div>
     }
 

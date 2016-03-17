@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>ProjectGenieJS</title>
+
+    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=no">
+
+    <script src="js/react.js"></script>
+    <script src="js/react-dom.js"></script>
+    <!-- ProjectGenieJS references -->
+
+
+    <script src="js/out/Models.js"></script>
+    <script src="js/out/MessagingUI.js"></script>
+    <script src="js/out/core.js"></script>
+
+
+
+    <!--<script src="/js/default.js"></script>-->
+    <style>
+        #root {
+            position: absolute;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+        }
+
+        *{
+            font-family : "Helvetica Neue" , 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        textarea:focus, input:focus{
+    outline: none;
+}
+        input {
+            -webkit-appearance: none;
+            border-radius:0px;
+         }
+    </style>
+
+    
+</head>
+<body>
+    <div id="root">
+
+    </div>
+
+    <script>
+
+        if (window.innerWidth <= 520 || screen.width <= 300) {
+            startUI(true);
+        }
+        else {
+            startUI(false);
+        }
+        
+        window.addEventListener("resize", function () {
+            if (window.innerWidth <= 520 || screen.width <= 300) {
+                startUI(true);
+            }
+            else {
+                startUI(false);
+            }
+
+        });
+    </script>
+</body>
+</html>
