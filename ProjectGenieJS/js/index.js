@@ -12,10 +12,10 @@
                 helper.extendViewIntoTitleBar(true);
 
                 var titleBar = Windows.UI.ViewManagement.ApplicationView.getForCurrentView().titleBar;
-                titleBar.buttonForegroundColor = Windows.UI.Colors.gray;
+                titleBar.buttonForegroundColor = Windows.UI.Colors.white;
 
                 titleBar.buttonBackgroundColor = new Windows.UI.ColorHelper.fromArgb(0, 0, 0, 255);
-                titleBar.backgroundColor = new Windows.UI.ColorHelper.fromArgb(10, 255, 255, 255);
+                titleBar.backgroundColor = new Windows.UI.ColorHelper.fromArgb(255, 255, 255, 255);
                 //document.getElementById("root").style.bottom = "150px";
                 console.log(window.ReactRouter);
                 initUI();
