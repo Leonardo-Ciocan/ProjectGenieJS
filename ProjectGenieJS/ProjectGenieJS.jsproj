@@ -61,6 +61,7 @@
       <SubType>Designer</SubType>
     </AppxManifest>
     <Content Include="default.html" />
+    <Content Include="indexWeb.html" />
     <Content Include="defaultWeb.html" />
     <Content Include="gulpfile.js" />
     <Content Include="images\Amazon.png" />
