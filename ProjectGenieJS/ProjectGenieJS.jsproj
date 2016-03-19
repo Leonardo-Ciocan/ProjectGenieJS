@@ -67,6 +67,10 @@
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\fontawesome-webfont.woff2" />
     <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\ionicons.eot" />
+    <Content Include="fonts\ionicons.svg" />
+    <Content Include="fonts\ionicons.ttf" />
+    <Content Include="fonts\ionicons.woff" />
     <Content Include="images\amazon-banner.png" />
     <Content Include="images\azure-banner.png" />
     <Content Include="images\azure.png" />
@@ -118,6 +122,8 @@
     <Content Include="js\font-awesome\scss\_variables.scss" />
     <Content Include="js\font-awesome.min.css" />
     <Content Include="js\index.js" />
+    <Content Include="js\ionicons.min.css" />
+    <Content Include="js\jquery-2.2.2.js" />
     <Content Include="js\out\core.js" />
     <Content Include="js\out\IndexPage.js" />
     <Content Include="js\out\MessagingUI.js" />

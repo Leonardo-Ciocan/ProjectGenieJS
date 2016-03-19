@@ -14,9 +14,9 @@ var Thread = (function () {
 var i = 0;
 function generateID() { return String(i++); }
 var State = {
-    color: "#00cc66",
+    color: "black",
     username: "leonardo",
-    name: "Leonardo Ciocan",
+    name: "Leonardo C",
     currentThread: "1",
     threads: [
         { id: "0" },
@@ -59,7 +59,7 @@ function getMessagesByService(serviceID) {
 }
 function getFeed() {
     return State.threads.map(function (thread) {
-        var msgs = getMessagesByThread(thread.id);
+        var msgs = getMessagesByThread(thread.id).slice().filter(function (msg) { return msg.authorID != ""; });
         return msgs[msgs.length - 1];
     });
 }

@@ -12,12 +12,23 @@
                 helper.extendViewIntoTitleBar(true);
 
                 var titleBar = Windows.UI.ViewManagement.ApplicationView.getForCurrentView().titleBar;
-                titleBar.buttonForegroundColor = Windows.UI.Colors.white;
+                titleBar.buttonForegroundColor = Windows.UI.Colors.lightGray;
 
                 titleBar.buttonBackgroundColor = new Windows.UI.ColorHelper.fromArgb(0, 0, 0, 255);
                 titleBar.backgroundColor = new Windows.UI.ColorHelper.fromArgb(255, 255, 255, 255);
                 //document.getElementById("root").style.bottom = "150px";
                 console.log(window.ReactRouter);
+
+                var virtualKeyboard = Windows.UI.ViewManagement.InputPane.getForCurrentView();
+                virtualKeyboard.addEventListener("showing", function (event) {
+                    event.ensuredFocusedElementInView = true; // Prevent visual viewport resize.
+                    document.getElementById("root").style.bottom = event.occludedRect.height + "px";
+                }, false);
+
+                virtualKeyboard.addEventListener("hiding", function (event) {
+                    document.getElementById("root").style.bottom = 0;
+                }, false);
+
                 initUI();
 
             } else {
